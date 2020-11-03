@@ -13,7 +13,7 @@ describe("View Suppliers and Products", () => {
     });
 
     it("View a specific product", async () => {
-        const response = await supertest(app).get('/takealot/Redbull');
+        const response = await supertest(app).get('/suppliers/takealot/Redbull');
         expect(response.status).toBe(200);
     });
 });
