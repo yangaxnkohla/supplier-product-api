@@ -30,6 +30,30 @@ app.get('/suppliers', (req, res) => {
     });
 });
 
+// GET e.g.: http://localhost:8888/suppliers/test
+app.get('/suppliers/:supplier', (req, res) => {
+    fs.readFile(db, 'utf8', (err, data) => {
+        if (err) throw new Error("*** An error occured..." + err);
+        // convert from JSON to JS Object
+        let dataObj = JSON.parse(data);
+        let supplierStr = req.params.supplier;
+        
+        // check if the supplier exists
+        let supplierExists = utils.entityExists(dataObj.contents.suppliers, '_supplier', supplierStr);
+
+        if (!supplierExists.exists) {
+            res.end("The supplier does not exist");
+        } else {
+            // get all the suppliers in the db
+            console.log("===> Getting the supplier...");
+            let supplier = dataObj.contents.suppliers[supplierExists.index];
+            // convert dataObj to JSON and return
+            console.log(JSON.stringify(supplier));
+            res.end(JSON.stringify(supplier));
+        }
+    });
+});
+
 // POST e.g.: http://localhost:8888/addSupplier?name=test&location=test&contact=123
 app.post('/addSupplier', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
