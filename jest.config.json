@@ -1,0 +1,13 @@
+{
+    "reporters": [
+        "default",
+        "jest-html-reporters",
+        [
+            "./node_modules/jest-html-reporters",
+            {
+                "pageTitle": "Supplier-Product API Report",
+                "includeConsoleLog": true
+            }
+        ]
+    ]
+}
