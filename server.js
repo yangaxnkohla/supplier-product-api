@@ -11,6 +11,7 @@ const Product = require(__dirname + "/api/models/product.js");
 
 const utils = require(__dirname + "/api/utils/utils.js");
 
+// get all the suppliers in the db
 // GET e.g.: http://localhost:8888/suppliers
 app.get('/suppliers', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
@@ -18,11 +19,10 @@ app.get('/suppliers', (req, res) => {
         // convert from JSON to JS Object
         let dataObj = JSON.parse(data);
         let numSuppliers = dataObj.contents.suppliers.length;
-        
+
         if (numSuppliers == 0) {
             res.end("There are no suppliers added at the moment");
         } else {
-            // get all the suppliers in the db
             console.log("===> Getting all the suppliers...");
             console.log(data);
             res.end(data);
@@ -30,6 +30,7 @@ app.get('/suppliers', (req, res) => {
     });
 });
 
+// get the supplier from the db
 // GET e.g.: http://localhost:8888/suppliers/test
 app.get('/suppliers/:supplier', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
@@ -37,14 +38,13 @@ app.get('/suppliers/:supplier', (req, res) => {
         // convert from JSON to JS Object
         let dataObj = JSON.parse(data);
         let supplierStr = req.params.supplier;
-        
+
         // check if the supplier exists
         let supplierExists = utils.entityExists(dataObj.contents.suppliers, '_supplier', supplierStr);
 
         if (!supplierExists.exists) {
             res.end("The supplier does not exist");
         } else {
-            // get all the suppliers in the db
             console.log("===> Getting the supplier...");
             let supplier = dataObj.contents.suppliers[supplierExists.index];
             // convert dataObj to JSON and return
@@ -54,6 +54,7 @@ app.get('/suppliers/:supplier', (req, res) => {
     });
 });
 
+// add supplier to the db
 // POST e.g.: http://localhost:8888/addSupplier?name=test&location=test&contact=123
 app.post('/addSupplier', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
@@ -65,7 +66,7 @@ app.post('/addSupplier', (req, res) => {
         let supplierObj = new Supplier(req.query.name, req.query.location, req.query.contact, [], id);
         // check if the supplier exists
         let supplierExists = utils.entityExists(dataObj.contents.suppliers, '_supplier', supplierObj.supplier);
-        
+
         if (supplierExists.exists) {
             res.end("The supplier already exists");
         } else {
@@ -75,6 +76,43 @@ app.post('/addSupplier', (req, res) => {
             // convert dataObj to JSON and write to db file
             let dataJSON = utils.writeToDB(dataObj, fs, db);
             res.end(dataJSON);
+        }
+    });
+});
+
+// get a product from the db
+// GET e.g.: http://localhost:8888/suppliers/test1/test2
+app.get('/suppliers/:supplier/:product', (req, res) => {
+    fs.readFile(db, 'utf8', (err, data) => {
+        if (err) throw new Error("*** An error occured..." + err);
+        // convert from JSON to JS Object
+        let dataObj = JSON.parse(data);
+        let supplierStr = req.params.supplier;
+        let productStr = req.params.product;
+
+        // check if the supplier exists
+        let supplierExists = utils.entityExists(dataObj.contents.suppliers, '_supplier', supplierStr);
+        // check if the product is already in the db
+        let productExists = { exists: false, index: -1 };
+
+        if (supplierExists.exists) {
+            let index = supplierExists.index;
+            productExists = utils.entityExists(dataObj.contents.suppliers[index]._products, '_product', productStr);
+        }
+
+        if (!supplierExists.exists) {
+            res.end("The supplier does not exist");
+        }else if (!productExists.exists) {
+            res.end("The product does not exist");
+        } else {
+            // get the product from the db
+            console.log("===> Getting the product...");
+            let sIndex = supplierExists.index;
+            let pIndex = productExists.index;
+            let product = dataObj.contents.suppliers[sIndex]._products[pIndex];
+            // convert dataObj to JSON and return
+            console.log(JSON.stringify(product));
+            res.end(JSON.stringify(product));
         }
     });
 });
@@ -92,12 +130,12 @@ app.post('/:supplier/addProduct', (req, res) => {
         let supplierExists = utils.entityExists(dataObj.contents.suppliers, '_supplier', supplierStr);
         // check if the product is already in the db
         let productExists = { exists: false, index: -1 };
-        
+
         if (supplierExists.exists) {
             let index = supplierExists.index;
             productExists = utils.entityExists(dataObj.contents.suppliers[index]._products, '_product', productObj.product);
         }
-        
+
         if (!supplierExists.exists) {
             res.end("The supplier does not exist");
         } else if (productExists.exists) {
@@ -131,7 +169,7 @@ app.delete('/deleteSupplier', (req, res) => {
         let numSuppliers = dataObj.contents.suppliers.length;
         // check if the supplier exists
         let supplierExists = utils.entityExists(dataObj.contents.suppliers, '_supplier', supplierStr);
-        
+
         if (!supplierExists.exists) {
             res.send("The supplier does not exist");
         } else {
@@ -163,12 +201,12 @@ app.delete('/:supplier/deleteProduct', (req, res) => {
         let supplierExists = utils.entityExists(dataObj.contents.suppliers, '_supplier', supplierStr);
         // check if the product is already in the db
         let productExists = { exists: false, index: -1 };
-        
+
         if (supplierExists.exists) {
             let index = supplierExists.index;
             productExists = utils.entityExists(dataObj.contents.suppliers[index]._products, '_product', productStr);
         }
-        
+
         if (!supplierExists.exists) {
             res.send("The supplier does not exist");
         } else if (!productExists.exists) {
@@ -191,7 +229,7 @@ app.delete('/:supplier/deleteProduct', (req, res) => {
                         }
                     }
                 }
-                
+
                 if (deleted) {
                     // convert dataObj to JSON and write to db file
                     let dataJSON = utils.writeToDB(dataObj, fs, db);

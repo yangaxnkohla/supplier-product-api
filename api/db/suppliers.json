@@ -1,1 +1,33 @@
-{"contents":{"suppliers":[{"_supplier":"takealot","_location":"Cape Town","_contact":"takealot@takealot.com","_products":[{"_product":"Redbull","_sku":"123test456","_price":"15.00"},{}],"_id":247365},{"_supplier":"Amazon","_location":"Cape Town","_contact":"amazon@amazon.com","_products":[{"_product":"Book","_sku":"B159753","_price":"100.00"}],"_id":365247},{"_products":[],"_id":684}]}}
+{
+    "contents": {
+        "suppliers": [
+            {
+                "_supplier": "takealot",
+                "_location": "Cape Town",
+                "_contact": "takealot@takealot.com",
+                "_products": [
+                    {
+                        "_product": "Redbull",
+                        "_sku": "123test456",
+                        "_price": "15.00"
+                    },
+                    {}
+                ],
+                "_id": 247365
+            },
+            {
+                "_supplier": "Amazon",
+                "_location": "Cape Town",
+                "_contact": "amazon@amazon.com",
+                "_products": [
+                    {
+                        "_product": "Book",
+                        "_sku": "B159753",
+                        "_price": "100.00"
+                    }
+                ],
+                "_id": 365247
+            }
+        ]
+    }
+}
