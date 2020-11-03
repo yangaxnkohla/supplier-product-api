@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "de6a96f8-b436-408c-bf3e-4f98a5b03a7f",
+		"name": "Supplier-Product API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Suppliers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/suppliers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"suppliers"
+					]
+				},
+				"description": "Retrieves all suppliers from the db.\nhttp://localhost:8888/suppliers"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Supplier",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/suppliers/takealot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"suppliers",
+						"takealot"
+					]
+				},
+				"description": "Gets the supplier from the db.\nhttp://localhost:8888/suppliers/test"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/suppliers/takealot/Redbull",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"suppliers",
+						"takealot",
+						"Redbull"
+					]
+				},
+				"description": "Get the product from the db.\nhttp://localhost:8888/suppliers/test1/test2"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Supplier",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/addSupplier?name=Hogwarts&location=Scottish Highlands&contact=wizards@hogwarts.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"addSupplier"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Hogwarts"
+						},
+						{
+							"key": "location",
+							"value": "Scottish Highlands"
+						},
+						{
+							"key": "contact",
+							"value": "wizards@hogwarts.com"
+						}
+					]
+				},
+				"description": "Adds a new supplier to the db.\nhttp://localhost:8888/addSupplier?name=test999&location=test999&contact=999"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "188ce587-7719-4757-a437-691b35ce4ac2",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/takealot/addProduct?name=Pillow&sku=Z123321&price=247365",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"takealot",
+						"addProduct"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Pillow"
+						},
+						{
+							"key": "sku",
+							"value": "Z123321"
+						},
+						{
+							"key": "price",
+							"value": "247365"
+						}
+					]
+				},
+				"description": "Add product to db.\nhttp://localhost:8888/{_supplier}/addProduct?name=test999&sku=test999&price=999"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Supplier",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/deleteSupplier?name=Hogwarts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"deleteSupplier"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Hogwarts"
+						}
+					]
+				},
+				"description": "Delete supplier from db.\nhttp://localhost:8888/deleteSupplier?name=test999"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/takealot/deleteProduct?name=Pillow",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"takealot",
+						"deleteProduct"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Pillow"
+						}
+					]
+				},
+				"description": "Delete product from db.\nhttp://localhost:8888/{_supplier}/deleteProduct?name=test999"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
