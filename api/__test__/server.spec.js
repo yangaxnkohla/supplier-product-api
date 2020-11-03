@@ -1,9 +1,19 @@
 const supertest = require('supertest');
 const app = require('../../server');
 
-describe("View Suppliers", () => {
-    it("View suppliers", async () => {
+describe("View Suppliers and Products", () => {
+    it("View all the suppliers", async () => {
         const response = await supertest(app).get('/suppliers');
+        expect(response.status).toBe(200);
+    });
+
+    it("View a specific supplier", async () => {
+        const response = await supertest(app).get('/suppliers/takealot');
+        expect(response.status).toBe(200);
+    });
+
+    it("View a specific product", async () => {
+        const response = await supertest(app).get('/takealot/Redbull');
         expect(response.status).toBe(200);
     });
 });

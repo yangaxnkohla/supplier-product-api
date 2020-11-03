@@ -11,8 +11,8 @@ const Product = require(__dirname + "/api/models/product.js");
 
 const utils = require(__dirname + "/api/utils/utils.js");
 
-// get all the suppliers in the db
-// GET e.g.: http://localhost:8888/suppliers
+// GET all the suppliers in the db
+// e.g.: http://localhost:8888/suppliers
 app.get('/suppliers', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
         if (err) throw new Error("*** An error occured..." + err);
@@ -30,8 +30,8 @@ app.get('/suppliers', (req, res) => {
     });
 });
 
-// get the supplier from the db
-// GET e.g.: http://localhost:8888/suppliers/test
+// GET the supplier from the db
+// e.g.: http://localhost:8888/suppliers/test
 app.get('/suppliers/:supplier', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
         if (err) throw new Error("*** An error occured..." + err);
@@ -54,8 +54,8 @@ app.get('/suppliers/:supplier', (req, res) => {
     });
 });
 
-// add supplier to the db
-// POST e.g.: http://localhost:8888/addSupplier?name=test&location=test&contact=123
+// POST the supplier to the db
+// e.g.: http://localhost:8888/addSupplier?name=test&location=test&contact=123
 app.post('/addSupplier', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
         if (err) throw new Error("*** An error occured..." + err);
@@ -80,8 +80,8 @@ app.post('/addSupplier', (req, res) => {
     });
 });
 
-// get a product from the db
-// GET e.g.: http://localhost:8888/suppliers/test1/test2
+// GET the product from the db
+// e.g.: http://localhost:8888/suppliers/test1/test2
 app.get('/suppliers/:supplier/:product', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
         if (err) throw new Error("*** An error occured..." + err);
@@ -117,7 +117,8 @@ app.get('/suppliers/:supplier/:product', (req, res) => {
     });
 });
 
-// POST e.g.: http://localhost:8888/test123/addProduct?name=test&sku=test&price=123
+// POST the product to the db
+// e.g.: http://localhost:8888/test123/addProduct?name=test&sku=test&price=123
 app.post('/:supplier/addProduct', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
         if (err) throw new Error("*** An error occured..." + err);
@@ -159,7 +160,8 @@ app.post('/:supplier/addProduct', (req, res) => {
     });
 });
 
-// DELETE e.g.: http://localhost:8888/deleteSupplier?name=test123
+// DELETE the supplier from the db
+// e.g.: http://localhost:8888/deleteSupplier?name=test123
 app.delete('/deleteSupplier', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
         if (err) throw new Error("*** An error occured..." + err);
@@ -189,7 +191,8 @@ app.delete('/deleteSupplier', (req, res) => {
     });
 });
 
-// DELETE e.g.: http://localhost:8888/test123/deleteProduct?name=test123
+// DELETE the product from the db
+// e.g.: http://localhost:8888/test123/deleteProduct?name=test123
 app.delete('/:supplier/deleteProduct', (req, res) => {
     fs.readFile(db, 'utf8', (err, data) => {
         if (err) throw new Error("*** An error occured..." + err);
